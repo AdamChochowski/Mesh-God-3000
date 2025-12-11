@@ -1,4 +1,4 @@
-# CatBorg Studio | Mesh God 3000 – MeshGod Operations Documentation
+# MeshGod Operations Documentation
 
 This document lists all available MeshGod operations, sorted by OperationType.
 
@@ -50,9 +50,27 @@ Moves the pivot point of the mesh to the average center of the currently selecte
 
 ---
 
+## Other (MeshGod3000.OperationType) - Combo A (Single)
+
+Combo Example, will conduct Separate Selected, Remove Unused Materials, Pivot To Bottom and Save as FBX file
+
+---
+
+## Other (MeshGod3000.OperationType) - Combo B (Multi)
+
+Combo Example, will conduct Separate Selected, Remove Unused Materials, Pivot To Bottom and Save as FBX file
+
+---
+
 ## Other (MeshGod3000.OperationType) - Orientation Set
 
 Enables interactive orientation editing by displaying rotation handles that let you adjust the mesh’s orientation in space without rotating its geometry. This is useful for correcting alignment, standardizing model rotations, or preparing assets for consistent placement and snapping in a scene.
+
+---
+
+## Other (MeshGod3000.OperationType) - Remove Unused Materials
+
+Removes all materials that are not used by any submesh of the current mesh. This operation reduces unnecessary draw calls, lowers the number of active shadow casters, and can significantly improve rendering performance and overall FPS — especially on complex meshes or in large scenes.  Every submesh is analyzed, and if a material has no geometry assigned to it, it is safely removed from the renderer’s material list. Undo is fully supported, allowing you to restore the original material setup at any time.
 
 ---
 
@@ -77,6 +95,18 @@ Saves all meshes in the selected GameObject's hierarchy as individual .asset fil
 ## Other (MeshGod3000.OperationType) - Save As FBX
 
 Exports the selected mesh object as a standalone FBX file into the project’s MeshGod3000/Saved Files/FBX folder. Useful for saving edited meshes for use in other scenes, projects, or external tools like Blender or Maya. Requires: UnityEditor.Formats.Fbx.Exporter, and the FBX Exporter package installed via Unity Package Manager. 
+
+---
+
+## Other (MeshGod3000.OperationType) - Flat Shading
+
+Applies flat shading only to the selected triangles by duplicating their vertices, creating crisp hard edges. All unselected geometry is left untouched, maintaining its original shading. Undo is fully supported.
+
+---
+
+## Other (MeshGod3000.OperationType) - Smooth Shading
+
+Applies smooth shading only to the selected triangles by merging shared vertices to produce soft, rounded lighting. The rest of the mesh remains unchanged, preserving its current shading and topology. Undo is fully supported.
 
 ---
 
