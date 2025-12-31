@@ -6,11 +6,19 @@ This document lists all available MeshGod operations, sorted by OperationType.
 
 Deletes only the selected triangles from a mesh while keeping the rest intact. The tool updates the mesh and any associated MeshColliders automatically, and it fully supports Undo. Useful for removing specific parts of a mesh, cleaning up geometry, or separating sub-meshes without affecting the rest of the model.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+
 ---
 
 ## Mesh (MeshGod3000.OperationType) - Mesh Move
 
 Lets you move only the selected triangles of a mesh using handles in the Scene view. It keeps the rest of the mesh unchanged, so you can adjust parts of your model without breaking it. The tool automatically calculates the center of the selection, updates the mesh, and fixes MeshColliders if needed. Undo is fully supported. Useful for repositioning parts of a mesh, aligning details, or adjusting vertices easily.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
 
 ---
 
@@ -18,11 +26,19 @@ Lets you move only the selected triangles of a mesh using handles in the Scene v
 
 Lets you rotate only the selected triangles of a mesh around a pivot using handles in the Scene view. The rest of the mesh stays unchanged, so you can adjust parts of your model without breaking it. The tool automatically calculates the pivot from the selected triangles, updates the mesh, and fixes MeshColliders if needed. Undo is fully supported. Useful for rotating mesh details, aligning sub-meshes, or adjusting vertex orientation easily.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+
 ---
 
 ## Mesh (MeshGod3000.OperationType) - Mesh Scale
 
 Rotate only the selected triangles of a mesh around a pivot using handles in the Scene view. The rest of the mesh stays unchanged, allowing you to adjust parts of your model without breaking it. The tool automatically calculates the pivot from the selected triangles, updates the mesh, and fixes MeshColliders if needed. Undo is fully supported. Useful for rotating mesh details, aligning sub-meshes, or adjusting vertex orientation easily.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
 
 ---
 
@@ -30,11 +46,21 @@ Rotate only the selected triangles of a mesh around a pivot using handles in the
 
 Moves the pivot point of the active mesh to the bottom-center of the model, based on the lowest point in world space rather than local orientation. This operation ignores the current selection and always aligns the pivot to the true world “bottom,” making it useful for placing objects on the ground, aligning models in a scene, and preparing assets for snapping or physics interactions.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
 ---
 
 ## Origin (MeshGod3000.OperationType) - Pivot Center of Mass
 
 Moves the pivot point of the selected mesh to its geometric center. Useful for symmetrical object placement, precise rotations, and balancing models within the scene.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
 
 ---
 
@@ -42,11 +68,31 @@ Moves the pivot point of the selected mesh to its geometric center. Useful for s
 
 Enables interactive pivot editing by displaying handles that let you drag and reposition the pivot point directly in the scene view. This gives you precise, manual control over pivot placement, making it useful for fine-tuning alignment, snapping, or custom pivot setups beyond automatic operations.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
 ---
 
 ## Origin (MeshGod3000.OperationType) - Pivot To Selection
 
 Moves the pivot point of the mesh to the average center of the currently selected triangles. Ideal for fine-tuning pivot placement based on specific mesh areas or modeling focus zones. 
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
+---
+
+## Other (MeshGod3000.OperationType) - Bind To Rig
+
+Rebinds the selected skinned mesh to an existing rig (metarig) found in the same hierarchy. The operation first searches for another properly working SkinnedMeshRenderer under the same parent, then inspects its rig. If a compatible metarig is found, the selected mesh is safely rebound to that rig.  Use this to assemble modular characters (heads, bodies, armor, clothing) by attaching separate skinned parts to a shared skeleton without re-skinning or re-exporting.  ✔ Automatically finds a valid rig in the hierarchy ✔ Verifies rig compatibility before binding ✔ Preserves skin weights and bind poses ✔ Designed for safe modular character assembly
+
+### Constraints
+
+- This operation cannot be conducted on **Static Meshes**.
 
 ---
 
@@ -54,11 +100,31 @@ Moves the pivot point of the mesh to the average center of the currently selecte
 
 Combo Example, will conduct Separate Selected, Remove Unused Materials, Pivot To Bottom and Save as FBX file
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
 ---
 
 ## Other (MeshGod3000.OperationType) - Combo B (Multi)
 
 Combo Example, will conduct Separate Selected, Remove Unused Materials, Pivot To Bottom and Save as FBX file
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
+---
+
+## Other (MeshGod3000.OperationType) - Flip Normals
+
+Flips the surface direction of the selected triangles by reversing their triangle winding order. This effectively inverts the normals of only the selected faces, while leaving the rest of the mesh unchanged. The operation works by swapping vertex indices in each affected triangle, ensuring a correct and engine-safe normal flip without modifying vertex positions, UVs, bone weights, or submesh structure. MeshColliders are updated automatically when present, and full Undo support is provided. Useful for fixing inverted faces, correcting inside-out geometry, or adjusting surface orientation on specific parts of a mesh without affecting the entire model.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
 
 ---
 
@@ -66,11 +132,20 @@ Combo Example, will conduct Separate Selected, Remove Unused Materials, Pivot To
 
 Enables interactive orientation editing by displaying rotation handles that let you adjust the mesh’s orientation in space without rotating its geometry. This is useful for correcting alignment, standardizing model rotations, or preparing assets for consistent placement and snapping in a scene.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+- This operation cannot be conducted on **Skinned Meshes**.
+
 ---
 
 ## Other (MeshGod3000.OperationType) - Remove Unused Materials
 
 Removes all materials that are not used by any submesh of the current mesh. This operation reduces unnecessary draw calls, lowers the number of active shadow casters, and can significantly improve rendering performance and overall FPS — especially on complex meshes or in large scenes.  Every submesh is analyzed, and if a material has no geometry assigned to it, it is safely removed from the renderer’s material list. Undo is fully supported, allowing you to restore the original material setup at any time.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
 
 ---
 
@@ -84,11 +159,19 @@ Saves the selected mesh as a .asset file inside the project’s MeshGod3000/Save
 
 Exports all mesh objects in the selected GameObject's hierarchy as individual FBX files into the project’s MeshGod3000/Saved Files/FBX folder. Each mesh is saved as a standalone FBX file, with '*' removed from GameObject names for filenames and in the scene. Useful for saving multiple edited meshes for use in other scenes, projects, or external tools like Blender or Maya. Requires: UnityEditor.Formats.Fbx.Exporter, and the FBX Exporter package installed via Unity Package Manager.  
 
+### Constraints
+
+- This operation cannot be conducted on **Skinned Meshes**.
+
 ---
 
 ## Other (MeshGod3000.OperationType) - Save All As Mesh
 
 Saves all meshes in the selected GameObject's hierarchy as individual .asset files inside the project’s MeshGod3000/Saved Files/Mesh folder. Each mesh is saved with a unique asset name, with '*' removed from GameObject names for filenames and in the scene. Updates each MeshFilter to use its respective saved mesh. Useful for preserving multiple mesh edits within the Unity project.  
+
+### Constraints
+
+- This operation cannot be conducted on **Skinned Meshes**.
 
 ---
 
@@ -102,11 +185,19 @@ Exports the selected mesh object as a standalone FBX file into the project’s M
 
 Applies flat shading only to the selected triangles by duplicating their vertices, creating crisp hard edges. All unselected geometry is left untouched, maintaining its original shading. Undo is fully supported.
 
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
+
 ---
 
 ## Other (MeshGod3000.OperationType) - Smooth Shading
 
 Applies smooth shading only to the selected triangles by merging shared vertices to produce soft, rounded lighting. The rest of the mesh remains unchanged, preserving its current shading and topology. Undo is fully supported.
+
+### Constraints
+
+- This operation can be conducted only on **Unpacked Prefabs**.
 
 ---
 
